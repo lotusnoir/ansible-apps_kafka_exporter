@@ -1,0 +1,50 @@
+---
+- name: "Check for kafka_exporter binary"
+  stat:
+    path: "/usr/local/bin/kafka_exporter"
+  changed_when: false
+  register: kafka_exporter_install
+
+- when: not kafka_exporter_install.stat.exists
+  block:
+    - name: "Download kafka_exporter..."
+      get_url:
+        url: '{{ kafka_exporter_tgz_url }}'
+        dest: /tmp/{{ kafka_exporter_tgz }}
+        timeout: 120
+        mode: 0644
+
+    - name: "Ensure tomcat directory exists"
+      file:
+        path: '{{ kafka_exporter_install_dir }}'
+        state: directory
+        mode: 0755
+
+    - name: "Unarchive kafka_exporter..."
+      unarchive:
+        src: /tmp/{{ kafka_exporter_tgz }}
+        dest: '{{ kafka_exporter_install_dir }}'
+        extra_opts: [--strip-components=1]
+        remote_src: true
+        mode: 0644
+
+    - name: "Copy kafka_exporter binary..."
+      copy:
+        src: '{{ kafka_exporter_install_dir }}/kafka_exporter'
+        dest: '/usr/local/bin/'
+        remote_src: true
+        mode: '0755'
+
+- name: "Create systemd for kafka_exporter"
+  template:
+    src: kafka_exporter.service.j2
+    dest: /etc/systemd/system/kafka_exporter.service
+    mode: 0644
+  notify: "restart kafka_exporter"
+
+- name: Start kafka_exporter.service
+  systemd:
+    name: kafka_exporter
+    state: started
+    enabled: true
+    daemon_reload: true

@@ -1,0 +1,5 @@
+---
+- name: "restart kafka_exporter"
+  service:
+    name: "kafka_exporter"
+    state: "restarted"

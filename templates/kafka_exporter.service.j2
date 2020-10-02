@@ -1,0 +1,18 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus Kafka Exporter
+After=network-online.target
+StartLimitInterval=0
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/local/bin/kafka_exporter --kafka.server=localhost:9092 --web.listen-address=:{{ kafka_exporter_port }}
+ExecReload=/bin/kill -HUP $MAINPID
+SyslogIdentifier=kafka_exporter
+RestartSec=1
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
