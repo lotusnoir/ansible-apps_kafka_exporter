@@ -11,7 +11,9 @@ Deploy [kafka_exporter](https://github.com/danielqsj/kafka_exporter/) to expose 
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
 | `kafka_exporter_version` | 1.2.0 | kafka_exporter version |
-| `kafka_exporter_install_dir` | /tmp/kafka_exporter | unzip folder |
+| `kafka_exporter_temp_dir` | /tmp | temporary directory to uncompress package |
+| `kafka_exporter_install_dir` | /usr/local/bin | directory to install binary |
+| `kafka_exporter_force_install` | false | force install variable |
 | `kafka_exporter_port` | 9102 | port to expose prometheus metrics |
 
 ## Examples
@@ -30,4 +32,4 @@ Deploy [kafka_exporter](https://github.com/danielqsj/kafka_exporter/) to expose 
 
 ## License
 
-This project is licensed under MIT License. See [LICENSE](/LICENSE) for more details.
+This project is licensed under Apache License. See [LICENSE](/LICENSE) for more details.
