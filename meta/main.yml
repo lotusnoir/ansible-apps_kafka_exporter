@@ -1,20 +1,29 @@
 ---
 galaxy_info:
-  author: "Philippe leal"
-  description: "Install and configure kafka exporter metrics for prometheus"
+  author: lotusnoir
   role_name: apps_kafka_exporter
-  license: "license: Apache License, Version 2.0"
+  description: "Deploy [kafka_exporter](https://github.com/danielqsj/kafka_exporter/) to expose kafka metrics to prometheus."
+  license: "Apache License, Version 2.0"
   min_ansible_version: 2.8
 
   platforms:
     - name: "Ubuntu"
       versions:
+        - "focal"
         - "bionic"
-        - "xenial"
     - name: "Debian"
       versions:
+        - "bullseye"
         - "buster"
-        - "stretch"
+    - name: "RedHat"
+      versions:
+        - "Maipo"
+    - name: "CentOS"
+      versions:
+        - "8"
+    - name: "Rocky"
+      versions:
+        - "8"
 
   galaxy_tags:
     - kafka
