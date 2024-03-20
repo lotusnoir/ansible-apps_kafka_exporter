@@ -1,5 +1,5 @@
 ---
-- name: "restart kafka_exporter"
+- name: "Restart kafka_exporter"
   ansible.builtin.service:
     name: "kafka_exporter"
     state: "restarted"

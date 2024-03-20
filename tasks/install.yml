@@ -54,7 +54,7 @@
     src: 'kafka_exporter.service.j2'
     dest: '/etc/systemd/system/kafka_exporter.service'
     mode: '0640'
-  notify: "restart kafka_exporter"
+  notify: "Restart kafka_exporter"
 
 - name: "Start kafka_exporter.service"
   ansible.builtin.service:
